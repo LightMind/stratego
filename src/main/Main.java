@@ -17,7 +17,9 @@ public class Main{
 		AppGameContainer gc = new AppGameContainer(game, 800, 600, false);
 		gc.setTargetFrameRate(60);
 		gc.setAlwaysRender(true);
-
+		gc.setUpdateOnlyWhenVisible(false);
+		gc.start();
+		
 	}
 	
 }
