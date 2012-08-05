@@ -17,12 +17,10 @@ public class GameMockup implements StrategoGame {
 	private Map<Location, Unit> units = new HashMap<Location, Unit>();
 
 	private Unit emptyUnit = new Unit() {
-
 		@Override
 		public Pieces getPiece() {
 			return Pieces.Empty;
 		}
-
 		@Override
 		public Player getOwner() {
 			return Player.None;
@@ -31,7 +29,6 @@ public class GameMockup implements StrategoGame {
 
 	public GameMockup(){
 		units.put(new Location(1,2), new Unit() {
-			
 			@Override
 			public Pieces getPiece() {
 				return Pieces.Major;
@@ -45,7 +42,7 @@ public class GameMockup implements StrategoGame {
 	}
 	
 	@Override
-	public Unit getPieceAt(int column, int row) {
+	public Unit getUnitAt(int column, int row) {
 		Unit u = units.get(new Location(column, row));
 		if (u == null) {
 			return emptyUnit;
