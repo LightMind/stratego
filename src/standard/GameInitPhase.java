@@ -63,6 +63,10 @@ public class GameInitPhase implements Drawable, Updateable{
 				for ( Unit unit : redUnits){
 					Location placement = red.placeUnit(unit);
 					
+					while(!checkPlacement(placement, PlayerColors.Red)){
+						placement = red.placeUnit(unit);
+					}
+					
 					synchronized (world) {
 						world.placeUnit(placement.column, placement.row, unit);
 					}
@@ -78,6 +82,10 @@ public class GameInitPhase implements Drawable, Updateable{
 				for ( Unit unit : blueUnits){
 					Location placement = blue.placeUnit(unit);
 					
+					while(!checkPlacement(placement, PlayerColors.Blue)){
+						placement = blue.placeUnit(unit);
+					}
+					
 					synchronized (world) {
 						world.placeUnit(placement.column, placement.row, unit);
 					}
@@ -85,6 +93,26 @@ public class GameInitPhase implements Drawable, Updateable{
 			}
 			
 		};
+	}
+	
+	private boolean checkPlacement(Location loc, PlayerColors owner){
+		if(owner.equals(PlayerColors.Blue)){
+			if(0 <= loc.column && loc.column < 10 
+					&& 0 <= loc.row && loc.row < 4){
+				if(world.getUnitAt(loc).getType().equals(UnitType.Empty)){
+					return true;
+				}
+			}
+		}
+		else if(owner.equals(PlayerColors.Red)){
+			if(0 < loc.column && loc.column < 10 
+					&& 6 <= loc.row && loc.row < 10){
+				if(world.getUnitAt(loc).getType().equals(UnitType.Empty)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	
