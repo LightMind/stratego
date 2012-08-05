@@ -1,6 +1,6 @@
 package framework;
 
-public enum Pieces {
+public enum UnitType {
 	Marshal, General, Colonel, Major, Captain, Lieutenant, Sergeant, Miner, Scout, Spy, Bomb, Flag, Empty, Unknown;
 
 	public String toString() {

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import framework.Answer;
 import framework.Location;
-import framework.Pieces;
+import framework.UnitType;
 import framework.Player;
 import framework.Rule;
 import framework.StrategoGame;
@@ -18,8 +18,8 @@ public class GameMockup implements StrategoGame {
 
 	private Unit emptyUnit = new Unit() {
 		@Override
-		public Pieces getPiece() {
-			return Pieces.Empty;
+		public UnitType getType() {
+			return UnitType.Empty;
 		}
 		@Override
 		public Player getOwner() {
@@ -30,8 +30,8 @@ public class GameMockup implements StrategoGame {
 	public GameMockup(){
 		units.put(new Location(1,2), new Unit() {
 			@Override
-			public Pieces getPiece() {
-				return Pieces.Major;
+			public UnitType getType() {
+				return UnitType.Major;
 			}
 			
 			@Override

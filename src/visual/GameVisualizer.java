@@ -10,7 +10,7 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import standard.Constants;
 
 import framework.Drawable;
-import framework.Pieces;
+import framework.UnitType;
 import framework.Player;
 import framework.StrategoGame;
 import framework.Terrain;
@@ -73,9 +73,9 @@ public class GameVisualizer implements Drawable {
 			for(int column = 0; column < width; column++){
 				Unit unit = game.getUnitAt(column, row);
 				Player player = unit.getOwner();
-				Pieces piece = unit.getPiece();
+				UnitType type = unit.getType();
 				
-				if(!piece.equals(Pieces.Empty)){
+				if(!type.equals(UnitType.Empty)){
 					g.setColor(Color.white);
 					g.fillRect(column*cellSize+boxOffset, row*cellSize+boxOffset,cellSize-boxSize, cellSize-boxSize);
 				}
@@ -84,7 +84,7 @@ public class GameVisualizer implements Drawable {
 				
 				g.setFont(uFont);
 				
-				g.drawString(piece.toString(), column*cellSize + offsetTextX, row*cellSize + offsetTextY);
+				g.drawString(type.toString(), column*cellSize + offsetTextX, row*cellSize + offsetTextY);
 				
 				g.resetFont();
 			}
