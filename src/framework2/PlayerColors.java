@@ -1,8 +1,8 @@
-package framework;
+package framework2;
 
 import org.newdawn.slick.Color;
 
-public enum Player {
+public enum PlayerColors {
 	Red,Blue,None;
 	
 	public Color getColor(){

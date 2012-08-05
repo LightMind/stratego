@@ -9,12 +9,12 @@ import org.newdawn.slick.font.effects.ColorEffect;
 
 import standard.Constants;
 
-import framework.Drawable;
-import framework.UnitType;
-import framework.Player;
 import framework.StrategoGame;
-import framework.Terrain;
-import framework.Unit;
+import framework2.Drawable;
+import framework2.PlayerColors;
+import framework2.Terrain;
+import framework2.Unit;
+import framework2.UnitType;
 
 
 public class GameVisualizer implements Drawable {
@@ -72,7 +72,7 @@ public class GameVisualizer implements Drawable {
 		for(int row = 0; row < height; row++){
 			for(int column = 0; column < width; column++){
 				Unit unit = game.getUnitAt(column, row);
-				Player player = unit.getOwner();
+				PlayerColors player = unit.getOwner();
 				UnitType type = unit.getType();
 				
 				if(!type.equals(UnitType.Empty)){

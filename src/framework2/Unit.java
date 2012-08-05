@@ -1,6 +1,7 @@
-package framework;
+package framework2;
+
 
 public interface Unit {
-	public Player getOwner();
+	public PlayerColors getOwner();
 	public UnitType getType();
 }

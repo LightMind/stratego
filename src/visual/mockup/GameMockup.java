@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import framework.Answer;
-import framework.Location;
-import framework.UnitType;
-import framework.Player;
-import framework.Rule;
 import framework.StrategoGame;
-import framework.Terrain;
-import framework.Unit;
+import framework2.Location;
+import framework2.PlayerColors;
+import framework2.Rule;
+import framework2.Terrain;
+import framework2.Unit;
+import framework2.UnitType;
 
 public class GameMockup implements StrategoGame {
 
@@ -22,8 +22,8 @@ public class GameMockup implements StrategoGame {
 			return UnitType.Empty;
 		}
 		@Override
-		public Player getOwner() {
-			return Player.None;
+		public PlayerColors getOwner() {
+			return PlayerColors.None;
 		}
 	};
 
@@ -35,8 +35,8 @@ public class GameMockup implements StrategoGame {
 			}
 			
 			@Override
-			public Player getOwner() {
-				return Player.Red;
+			public PlayerColors getOwner() {
+				return PlayerColors.Red;
 			}
 		});
 	}
@@ -56,8 +56,8 @@ public class GameMockup implements StrategoGame {
 	}
 
 	@Override
-	public Player getPlayerInTurn() {
-		return Player.Red;
+	public PlayerColors getPlayerInTurn() {
+		return PlayerColors.Red;
 	}
 
 	@Override

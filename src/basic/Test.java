@@ -8,8 +8,8 @@ import org.newdawn.slick.SlickException;
 import visual.GameVisualizer;
 import visual.mockup.GameMockup;
 
-import framework.Drawable;
 import framework.StrategoGame;
+import framework2.Drawable;
 
 
 public class Test extends BasicGame {

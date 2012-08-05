@@ -1,4 +1,4 @@
-package framework;
+package framework2;
 
 public class Location {
 	public final int row,column;
