@@ -5,15 +5,27 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import visual.GameVisualizer;
+import visual.mockup.GameMockup;
+
+import framework.Drawable;
+import framework.StrategoGame;
+
 
 public class Test extends BasicGame {
 
+	private Drawable visualizer; 
+	private StrategoGame game;
+	
 	public Test(String title) {
 		super(title);
+		game = new GameMockup();
+		visualizer = new GameVisualizer(game);
 	}
 
+	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
-		// TODO Auto-generated method stub
+		visualizer.draw(arg0, arg1);
 		
 	}
 
