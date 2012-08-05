@@ -3,6 +3,9 @@ package visual;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 
 import standard.Constants;
 
@@ -17,18 +20,37 @@ import framework.Unit;
 public class GameVisualizer implements Drawable {
 	private StrategoGame game;
 	private int width = Constants.WIDTH, height = Constants.HEIGHT;
-	private int cellSize = 20;
+	private int cellSize = 30;
+	private float pieceSize; 
+	private UnicodeFont uFont;
 	
 	public GameVisualizer(StrategoGame sgame){
 		game = sgame;
+		 
 	}
+	
+	
+	@Override
+	public void init(GameContainer gc) {
+		pieceSize = ((float)cellSize)/3*2;
+		java.awt.Font font = new java.awt.Font("Ariel", java.awt.Font.PLAIN, pieceSize);
+		uFont = new UnicodeFont(font);
+		uFont.addAsciiGlyphs();
+		uFont.getEffects().add(new ColorEffect(java.awt.Color.white));
+		try {
+			uFont.loadGlyphs();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}		
+	}
+	
 
 	public void draw(GameContainer gc, Graphics g) {
 		for(int row = 0; row < height; row++){
 			for(int column = 0; column < width; column++){
 				Terrain t = game.getTerrain(column, row);
 				if(t.equals(Terrain.PLAIN)){
-					g.setColor(Color.green);
+					g.setColor(Color.decode("#667C26"));
 				}
 				else{
 					g.setColor(Color.decode("#151B8D"));
@@ -48,11 +70,13 @@ public class GameVisualizer implements Drawable {
 				
 				g.setColor(player.getColor());
 				
-				g.drawString(piece, column*cellSize + 3, row*cellSize + 3);
+				g.setFont(uFont);
 				
-				}
+				g.drawString(piece.toString(), column*cellSize + 15, row*cellSize + 2);
+				
+				g.resetFont();
 			}
 		}
-	}
+	}	
 
 }

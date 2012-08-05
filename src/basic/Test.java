@@ -31,7 +31,7 @@ public class Test extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
+		visualizer.init(container);
 		
 	}
 
