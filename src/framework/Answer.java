@@ -1,10 +1,10 @@
 package framework;
 
 public class Answer {
-	public final Pieces enemyPiece;
+	public final Unit enemyPiece;
 	public final boolean legalMove;
 	
-	public Answer (Pieces p, boolean legal){
+	public Answer (Unit p, boolean legal){
 		enemyPiece = p;
 		legalMove = legal;
 	}

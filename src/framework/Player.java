@@ -1,5 +1,5 @@
 package framework;
 
 public enum Player {
-	Red,Blue;
+	Red,Blue,None;
 }
