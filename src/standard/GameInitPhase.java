@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 
 import framework2.Drawable;
 import framework2.EditableWorld;
+import framework2.Location;
 import framework2.Player;
 import framework2.PlayerColors;
 import framework2.Unit;
@@ -54,7 +55,37 @@ public class GameInitPhase implements Drawable, Updateable{
 		
 	}
 	
-	private void 
+	private void getLocations(){
+		Runnable redRun = new Runnable() {
+			
+			@Override
+			public void run() {
+				for ( Unit unit : redUnits){
+					Location placement = red.placeUnit(unit);
+					
+					synchronized (world) {
+						world.placeUnit(placement.column, placement.row, unit);
+					}
+				}
+				
+			}
+		};
+		
+		Runnable blueRun = new Runnable(){
+
+			@Override
+			public void run() {
+				for ( Unit unit : blueUnits){
+					Location placement = blue.placeUnit(unit);
+					
+					synchronized (world) {
+						world.placeUnit(placement.column, placement.row, unit);
+					}
+				}
+			}
+			
+		};
+	}
 	
 	
 }
