@@ -19,8 +19,6 @@ public class Test extends BasicGame {
 	
 	public Test(String title) {
 		super(title);
-		game = new GameMockup();
-		visualizer = new GameVisualizer(game);
 	}
 
 	@Override
