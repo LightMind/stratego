@@ -11,9 +11,6 @@ import framework2.Unit;
 import framework2.UnitType;
 
 public class StandardWorld implements EditableWorld {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4830074430535793806L;
 	private Map<Location, Unit> units = new HashMap<Location, Unit>();
 	private Map<Location, Terrain> terrain = new HashMap<Location, Terrain>();

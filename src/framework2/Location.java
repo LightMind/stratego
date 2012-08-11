@@ -1,6 +1,10 @@
 package framework2;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
+	
+	private static final long serialVersionUID = 4932049546920982277L;
 	public final int row,column;
 	public Location (int column, int row){
 		this.row = row;
