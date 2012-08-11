@@ -44,28 +44,62 @@ public class NetworkPlayerServer implements Player {
 	
 	@Override
 	public Location placeUnit(Unit unit) {
+		try {
+			out.writeObject("placeUnit");
+			out.writeObject(unit);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	@Override
 	public Location[] switchUnits() {
+		try {
+			out.writeObject("switchUnit");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	@Override
 	public boolean endInitPhase() {
+		try {
+			out.writeObject("endInitPhase");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		return false;
 	}
 
 	@Override
 	public void updateWorld(World world) {
-		
-
+		try {
+			out.writeObject("updateWorld");
+			out.writeObject(world);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public Location[] getMove(World world) {
+		try {
+			out.writeObject("updateWorld");
+			out.writeObject(world);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
