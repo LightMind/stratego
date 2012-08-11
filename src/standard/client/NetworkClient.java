@@ -17,6 +17,7 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import framework2.Location;
 import framework2.Player;
+import framework2.Unit;
 import framework2.World;
 
 public class NetworkClient {
@@ -45,9 +46,37 @@ public class NetworkClient {
 			switch(msg){
 			case "updateWorld": updateWorld() ;break;
 			case "switchUnits": switchUnits() ;break;
+			case "placeUnit": placeUnit(); break;
+			case "endInitPhase": endInitPhase() ;break;
+			case "getMove": getMove(); break;
 			}
 			
 		}
+	}
+
+
+	private void getMove() throws ClassNotFoundException, IOException {
+		World w = (World) in.readObject();
+		Location[] loc = player.getMove(w);
+		out.writeObject(loc);
+		out.flush();
+	}
+
+
+	private void endInitPhase() throws IOException {
+		boolean b = player.endInitPhase();
+		out.writeBoolean(b);
+		out.flush();
+		
+	}
+
+
+	private void placeUnit() throws ClassNotFoundException, IOException {
+		Unit u = (Unit) in.readObject();
+		Location loc = player.placeUnit(u);
+		out.writeObject(loc);
+		out.flush();
+		
 	}
 
 
