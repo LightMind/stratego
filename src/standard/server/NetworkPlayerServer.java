@@ -48,7 +48,7 @@ public class NetworkPlayerServer implements Player {
 	}
 
 	@Override
-	public int[] switchUnits() {
+	public Location[] switchUnits() {
 		return null;
 	}
 
@@ -65,7 +65,7 @@ public class NetworkPlayerServer implements Player {
 	}
 
 	@Override
-	public int[] getMove(World world) {
+	public Location[] getMove(World world) {
 		return null;
 	}
 
