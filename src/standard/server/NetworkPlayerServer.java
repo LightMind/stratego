@@ -48,11 +48,17 @@ public class NetworkPlayerServer implements Player {
 			out.writeObject("placeUnit");
 			out.writeObject(unit);
 			out.flush();
+			
+			Location loc = (Location) in.readObject();
+
+			return loc;
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		
 		return null;
+		
 	}
 
 	@Override
@@ -60,7 +66,13 @@ public class NetworkPlayerServer implements Player {
 		try {
 			out.writeObject("switchUnit");
 			out.flush();
+			
+			Location[] loc = (Location[]) in.readObject();
+
+			return loc;
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -72,6 +84,10 @@ public class NetworkPlayerServer implements Player {
 		try {
 			out.writeObject("endInitPhase");
 			out.flush();
+			
+			Boolean b = in.readBoolean();
+			return b;
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,7 +112,13 @@ public class NetworkPlayerServer implements Player {
 			out.writeObject("updateWorld");
 			out.writeObject(world);
 			out.flush();
+			
+			Location[] loc = (Location[]) in.readObject();
+			
+			return loc;
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
