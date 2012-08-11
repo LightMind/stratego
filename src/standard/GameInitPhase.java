@@ -102,10 +102,7 @@ public class GameInitPhase implements Drawable, Updateable {
 						red.updateWorld(blueworld);
 						placement = blue.placeUnit(unit);
 					}
-
-					
 					placeUnit(unit, placement);
-					
 				}
 			}
 
