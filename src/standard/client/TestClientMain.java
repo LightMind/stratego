@@ -27,7 +27,7 @@ public class TestClientMain {
 			}
 			
 			@Override
-			public int[] switchUnits() {
+			public Location[] switchUnits() {
 				// TODO Auto-generated method stub
 				return null;
 			}
@@ -39,7 +39,7 @@ public class TestClientMain {
 			}
 			
 			@Override
-			public int[] getMove(World world) {
+			public Location[] getMove(World world) {
 				// TODO Auto-generated method stub
 				return null;
 			}

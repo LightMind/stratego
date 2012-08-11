@@ -62,4 +62,26 @@ public class StandardWorld implements EditableWorld {
 
 	}
 
+	@Override
+	public Terrain getTerrain(Location location) {
+		Terrain terra = this.terrain.get(location);
+		if (terra == null) {
+			terra = Terrain.PLAIN;
+			terrain.put(location, terra);
+		}
+		return terra;
+	}
+
+	@Override
+	public void placeUnit(Location location, Unit unit) {
+		units.put(location, unit);
+		
+	}
+
+	@Override
+	public void setTerrain(Location location, Terrain terrain) {
+		this.terrain.put(location, terrain);
+		
+	}
+
 }

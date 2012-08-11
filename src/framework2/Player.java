@@ -5,12 +5,12 @@ public interface Player {
 	 * Init phase
 	 */
 	public Location placeUnit(Unit unit);
-	public int[] switchUnits();
+	public Location[] switchUnits();
 	public boolean endInitPhase();
 	
 	/*
 	 * Main Game
 	 */
 	public void updateWorld(World world);
-	public int[] getMove(World world);
+	public Location[] getMove(World world);
 }
