@@ -52,6 +52,8 @@ public class TestClientMain {
 		};
 		InetAddress add = new InetSocketAddress("84.238.35.42", 25565).getAddress();
 		NetworkClient cl = new NetworkClient(add, 25565, p);
+		cl.listen();
+		cl.close();
 		
 	}
 

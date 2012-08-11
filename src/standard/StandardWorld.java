@@ -15,17 +15,7 @@ public class StandardWorld implements EditableWorld {
 	private Map<Location, Unit> units = new HashMap<Location, Unit>();
 	private Map<Location, Terrain> terrain = new HashMap<Location, Terrain>();
 
-	private Unit empty = new Unit() {
-		@Override
-		public UnitType getType() {
-			return UnitType.Empty;
-		}
-
-		@Override
-		public PlayerColors getOwner() {
-			return PlayerColors.None;
-		}
-	};
+	private Unit empty = new StandardUnit(PlayerColors.None, UnitType.Empty);
 
 	@Override
 	public Unit getUnitAt(int column, int row) {
