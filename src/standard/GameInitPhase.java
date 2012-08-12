@@ -41,6 +41,7 @@ public class GameInitPhase implements Drawable, Updateable {
 				redUnits.add(new StandardUnit(PlayerColors.Red, type));
 			}
 		}
+		System.out.println("Unit list created");
 	}
 
 	@Override
