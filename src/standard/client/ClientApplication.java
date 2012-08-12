@@ -17,7 +17,7 @@ public class ClientApplication {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws SlickException, ClassNotFoundException, IOException, InterruptedException {
-		Game game = new ClientGame("Stratego", "localhost");
+		Game game = new ClientGame("Stratego", "84.238.35.42");
 		AppGameContainer gc = new AppGameContainer(game, 800, 600, false);
 		gc.setTargetFrameRate(60);
 		gc.setAlwaysRender(true);

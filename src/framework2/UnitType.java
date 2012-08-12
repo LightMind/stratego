@@ -66,7 +66,7 @@ public enum UnitType {
 		case Unknown:
 			return "#";
 		case Empty:
-			return "";
+			return " ";
 		}
 		return "%";
 	}

@@ -18,7 +18,7 @@ public class ClientGame extends BasicGame {
 
 	private GameVisualizer visual;
 	private NetworkClient client;
-	private Player player;
+	private UserPlayer player;
 	
 	public ClientGame(String title, String addString) throws ClassNotFoundException, IOException, InterruptedException {
 		super(title);
@@ -33,12 +33,14 @@ public class ClientGame extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		visual.draw(container, g);
+		player.draw(container, g);
 
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
+		visual.init(container);
 		client.start();
 
 	}
@@ -46,7 +48,7 @@ public class ClientGame extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		player.update(container, delta);
 
 	}
 

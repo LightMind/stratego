@@ -43,7 +43,6 @@ public class GameVisualizer implements Drawable {
 
 	@Override
 	public void init(GameContainer gc) {
-
 		java.awt.Font font = new java.awt.Font("Arial", java.awt.Font.PLAIN,
 				textSize);
 		uFont = new UnicodeFont(font);
