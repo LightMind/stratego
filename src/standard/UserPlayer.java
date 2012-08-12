@@ -21,6 +21,10 @@ import static standard.Constants.*;
 
 public class UserPlayer implements Player, Updateable, Drawable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7098865388074696915L;
 	private GameVisualizer visual;
 	private GameState state;
 	

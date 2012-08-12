@@ -17,6 +17,11 @@ import framework2.Updateable;
 import framework2.World;
 
 public class GameInitPhase implements Drawable, Updateable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6483370725944817445L;
+
 	private final Player red, blue;
 
 	private final EditableWorld world = new StandardWorld();

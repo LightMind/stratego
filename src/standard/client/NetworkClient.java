@@ -18,6 +18,10 @@ import framework2.World;
 
 public class NetworkClient implements Updateable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1055809291986153829L;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private Player player;
@@ -125,8 +129,6 @@ public class NetworkClient implements Updateable{
 
 
 	private void updateWorld() throws ClassNotFoundException, IOException {
-		Object o = in.readObject();
-		System.out.println(o);
 		World w = (World) in.readObject();
 		player.updateWorld(w);
 	}

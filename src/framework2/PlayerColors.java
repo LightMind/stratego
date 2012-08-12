@@ -1,8 +1,10 @@
 package framework2;
 
+import java.io.Serializable;
+
 import org.newdawn.slick.Color;
 
-public enum PlayerColors {
+public enum PlayerColors implements Serializable {
 	Red,Blue,None;
 	
 	public Color getColor(){

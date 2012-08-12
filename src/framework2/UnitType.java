@@ -1,6 +1,8 @@
 package framework2;
 
-public enum UnitType {
+import java.io.Serializable;
+
+public enum UnitType implements Serializable{
 	Marshal, General, Colonel, Major, Captain, Lieutenant, Sergeant, Miner, Scout, Spy, Bomb, Flag, Empty, Unknown;
 
 	public int getAmount() {
