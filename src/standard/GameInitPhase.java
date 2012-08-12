@@ -95,11 +95,11 @@ public class GameInitPhase implements Drawable, Updateable {
 			@Override
 			public void run() {
 				for (Unit unit : blueUnits) {
-					red.updateWorld(blueworld);
+					blue.updateWorld(blueworld);
 					Location placement = blue.placeUnit(unit);
 
 					while (!checkPlacement(placement, PlayerColors.Blue)) {
-						red.updateWorld(blueworld);
+						blue.updateWorld(blueworld);
 						placement = blue.placeUnit(unit);
 					}
 					placeUnit(unit, placement);
