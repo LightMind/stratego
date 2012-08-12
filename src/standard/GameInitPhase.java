@@ -14,6 +14,7 @@ import framework2.PlayerColors;
 import framework2.Unit;
 import framework2.UnitType;
 import framework2.Updateable;
+import framework2.World;
 
 public class GameInitPhase implements Drawable, Updateable {
 	private final Player red, blue;
@@ -73,9 +74,8 @@ public class GameInitPhase implements Drawable, Updateable {
 
 	}
 
-	private void getLocations() {
+	public EditableWorld[] getInitPlacementFromPlayers() {
 		Runnable redRun = new Runnable() {
-
 			@Override
 			public void run() {
 				for (Unit unit : redUnits) {
@@ -91,7 +91,6 @@ public class GameInitPhase implements Drawable, Updateable {
 		};
 
 		Runnable blueRun = new Runnable() {
-
 			@Override
 			public void run() {
 				for (Unit unit : blueUnits) {
@@ -107,6 +106,20 @@ public class GameInitPhase implements Drawable, Updateable {
 			}
 
 		};
+		
+		Thread red = new Thread(redRun);
+		Thread blue = new Thread(blueRun);
+		red.start();
+		blue.start();
+		try {
+			red.join();
+			blue.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		EditableWorld[] result = {redworld, blueworld, world};
+		return result;
 	}
 
 	private boolean checkPlacement(Location loc, PlayerColors owner) {

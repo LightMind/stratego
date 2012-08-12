@@ -1,9 +1,8 @@
-package main;
+package standard.server;
 
 import java.io.IOException;
 
 import framework2.PlayerColors;
-import standard.server.NetworkPlayerServer;
 
 public class TestServerMain {
 
