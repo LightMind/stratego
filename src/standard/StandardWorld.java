@@ -12,8 +12,8 @@ import framework2.UnitType;
 
 public class StandardWorld implements EditableWorld {
 	private static final long serialVersionUID = 4830074430535793806L;
-	private Map<Location, Unit> units = new HashMap<Location, Unit>();
-	private Map<Location, Terrain> terrain = new HashMap<Location, Terrain>();
+	private HashMap<Location, Unit> units = new HashMap<Location, Unit>();
+	private HashMap<Location, Terrain> terrain = new HashMap<Location, Terrain>();
 
 	private Unit empty = new StandardUnit(PlayerColors.None, UnitType.Empty);
 
@@ -25,10 +25,10 @@ public class StandardWorld implements EditableWorld {
 	@Override
 	public Unit getUnitAt(Location loc) {
 		Unit unit = units.get(loc);
-		if (unit == null) {
+		/*if (unit == null) {
 			unit = empty;
 			units.put(loc, unit);
-		}
+		}*/
 		return unit;
 	}
 
