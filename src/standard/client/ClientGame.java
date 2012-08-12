@@ -20,13 +20,13 @@ public class ClientGame extends BasicGame {
 	private NetworkClient client;
 	private UserPlayer player;
 	
-	public ClientGame(String title, String addString) throws ClassNotFoundException, IOException, InterruptedException {
+	public ClientGame(String title, String addString, int port) throws ClassNotFoundException, IOException, InterruptedException {
 		super(title);
 		visual = new GameVisualizer();
 		player = new UserPlayer(visual);
 		
-		InetAddress sad = new InetSocketAddress(addString, 25565).getAddress();
-		client = new NetworkClient(sad, 25565, player);
+		InetAddress sad = new InetSocketAddress(addString, port).getAddress();
+		client = new NetworkClient(sad, port, player);
 		
 	}
 
