@@ -86,6 +86,9 @@ public class GameVisualizer implements Drawable {
 		for (int row = 0; row < height; row++) {
 			for (int column = 0; column < width; column++) {
 				Unit unit = world.getUnitAt(column, row);
+				if(unit == null){
+					continue;
+				}
 				PlayerColors player = unit.getOwner();
 				UnitType type = unit.getType();
 
