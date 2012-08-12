@@ -50,6 +50,12 @@ public class NetworkPlayerServer implements Player {
 			
 			Location loc = (Location) in.readObject();
 
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return loc;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -100,6 +106,13 @@ public class NetworkPlayerServer implements Player {
 			out.writeObject("updateWorld");
 			out.writeObject(world);
 			out.flush();
+			
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
