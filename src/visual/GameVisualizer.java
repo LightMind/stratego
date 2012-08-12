@@ -23,7 +23,7 @@ import framework2.World;
 public class GameVisualizer implements Drawable {
 	private World world;
 	private int width = Constants.WIDTH, height = Constants.HEIGHT;
-	private int cellSize = 40;
+	private int cellSize = Constants.CELLSIZE;
 	private int textSize;
 	private UnicodeFont uFont;
 	private int offsetTextX, offsetTextY;
