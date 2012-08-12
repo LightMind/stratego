@@ -93,6 +93,10 @@ public class GameVisualizer implements Drawable {
 					g.setColor(Color.white);
 					g.fillRect(column * cellSize + boxOffset, row * cellSize
 							+ boxOffset, cellSize - boxSize, cellSize - boxSize);
+				} else {
+					g.setColor(Color.darkGray);
+					g.fillRect(column * cellSize + boxOffset, row * cellSize
+							+ boxOffset, cellSize - boxSize, cellSize - boxSize);
 				}
 
 				g.setColor(player.getColor());
