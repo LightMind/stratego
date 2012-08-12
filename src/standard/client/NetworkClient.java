@@ -8,17 +8,21 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import org.newdawn.slick.GameContainer;
+
 import framework2.Location;
 import framework2.Player;
 import framework2.Unit;
+import framework2.Updateable;
 import framework2.World;
 
-public class NetworkClient {
+public class NetworkClient implements Updateable{
 	
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private Player player;
 	private Socket socket;
+	private Thread t = null;
 	
 	public NetworkClient(InetAddress adress, int port,Player player) throws IOException, InterruptedException, ClassNotFoundException{
 		socket = new Socket(adress, port);
@@ -31,27 +35,50 @@ public class NetworkClient {
 		in = new ObjectInputStream(instream);
 	}
 	
+	public void start(){
+		if ( t != null){
+			return;
+		}
+		Runnable run = new Runnable() {
+			@Override
+			public void run() {
+				while(true){
+					try {
+						listen();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} 
+				}
+				
+			}
+		};
+		t = new Thread(run);
+		t.start();
+	}
+	
+	public void stop() throws IOException{
+		t.interrupt();
+		socket.close();
+	}
+	
 
 	public void listen() throws ClassNotFoundException, IOException{
-		while(true){
-			Object o = in.readObject();
-			String msg = (String) o;
-			switch(msg){
-			case "updateWorld": updateWorld() ;break;
-			case "switchUnits": switchUnits() ;break;
-			case "placeUnit": placeUnit(); break;
-			case "endInitPhase": endInitPhase() ;break;
-			case "getMove": getMove(); break;
-			}
-			
+		Object o = in.readObject();
+		String msg = (String) o;
+		switch(msg){
+		case "updateWorld": updateWorld() ;break;
+		case "switchUnits": switchUnits() ;break;
+		case "placeUnit": placeUnit(); break;
+		case "endInitPhase": endInitPhase() ;break;
+		case "getMove": getMove(); break;
 		}
 	}
 	
 	public void close() throws IOException{
 		socket.close();
 	}
-	
-	
 
 
 	private void getMove() throws ClassNotFoundException, IOException {
@@ -90,5 +117,11 @@ public class NetworkClient {
 	private void updateWorld() throws ClassNotFoundException, IOException {
 		World w = (World) in.readObject();
 		player.updateWorld(w);
+	}
+
+
+	@Override
+	public void update(GameContainer gc, int delta) {
+			
 	}
 }

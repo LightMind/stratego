@@ -27,6 +27,7 @@ public class ClientGame extends BasicGame {
 		
 		InetAddress sad = new InetSocketAddress(addString, 25565).getAddress();
 		client = new NetworkClient(sad, 25565, player);
+		
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class ClientGame extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
+		client.start();
 
 	}
 
