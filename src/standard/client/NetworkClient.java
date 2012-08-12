@@ -130,6 +130,13 @@ public class NetworkClient implements Updateable{
 
 	private void updateWorld() throws ClassNotFoundException, IOException {
 		World w = (World) in.readObject();
+		System.out.println(w);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		player.updateWorld(w);
 	}
 

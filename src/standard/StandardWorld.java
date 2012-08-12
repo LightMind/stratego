@@ -75,4 +75,14 @@ public class StandardWorld implements EditableWorld {
 		
 	}
 
+	
+	public String toString(){
+		String result = "";
+		for(Location k : units.keySet()){
+			Unit t = units.get(k);
+			System.out.println(t);
+			System.out.println(t.getType().toString());
+		}
+		return result;
+	}
 }

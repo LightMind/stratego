@@ -68,7 +68,7 @@ public enum UnitType implements Serializable{
 		case Unknown:
 			return "#";
 		case Empty:
-			return " ";
+			return "E";
 		}
 		return "%";
 	}

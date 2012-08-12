@@ -24,5 +24,9 @@ public class StandardUnit implements Unit {
 	public UnitType getType() {
 		return type;
 	}
+	
+	public String toString(){
+		return "?";
+	}
 
 }
