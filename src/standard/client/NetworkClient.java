@@ -42,12 +42,18 @@ public class NetworkClient implements Updateable{
 		Runnable run = new Runnable() {
 			@Override
 			public void run() {
+				
 				while(true){
+					
 					try {
+						Thread.sleep(100);
 						listen();
 					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
+						//e.printStackTrace();
 					} catch (IOException e) {
+						//e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} 
 				}

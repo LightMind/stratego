@@ -1,5 +1,6 @@
 package standard;
 
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.newdawn.slick.Color;
@@ -30,6 +31,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 	private boolean endInitPhase = false;
 	
 	private ReentrantLock lock = new ReentrantLock();
+	private Condition condition = lock.newCondition();
 	
 	public UserPlayer(GameVisualizer visual){
 		this.visual = visual;
@@ -41,7 +43,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		lock.lock();
 		while (queue[0] == null) {
 			try {
-				lock.wait();
+				condition.await();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -61,7 +63,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		}
 		while(queue[0] == null || queue[1] == null){
 			try {
-				lock.wait();
+				condition.await();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -89,7 +91,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		state = GameState.GamePhase;
 		while(queue[0] == null || queue[1] == null){
 			try {
-				lock.wait();
+				condition.await();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -129,6 +131,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 				g.drawRect(queue[0].column * CELLSIZE + 1, queue[0].row	* CELLSIZE + 1, CELLSIZE - 2, CELLSIZE - 2);
 			}
 		}
+		lock.unlock();
 	}
 
 	@Override
@@ -166,8 +169,8 @@ public class UserPlayer implements Player, Updateable, Drawable {
 			case UnitPlacement : 
 				if(queue[0] == null){
 					queue[0] = new Location(x,y);
-					lock.notifyAll();
-				}
+					condition.signalAll();
+				} 
 				break;
 			case UnitSwitching :
 			case GamePhase :
@@ -176,10 +179,10 @@ public class UserPlayer implements Player, Updateable, Drawable {
 				}
 				else if(queue[1] == null){
 					queue[1] = new Location(x,y);
-					lock.notifyAll();
+					condition.signalAll();
 				}
 				else{
-					lock.notifyAll();
+					condition.signalAll();
 				}
 			}
 			lock.unlock();
