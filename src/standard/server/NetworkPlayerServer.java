@@ -105,9 +105,10 @@ public class NetworkPlayerServer implements Player {
 	public void updateWorld(World world) {
 		System.out.println("updateWorld " + color);
 		try {
-			out.writeObject("updateWorld");
+			out.writeObject("updateWorld:");
 			System.out.println(world);
 			out.writeObject(world);
+			System.out.println(world);
 			out.flush();
 			
 			try {

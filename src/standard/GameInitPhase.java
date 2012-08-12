@@ -114,7 +114,7 @@ public class GameInitPhase implements Drawable, Updateable {
 			}
 
 		};
-		
+
 		Thread red = new Thread(redRun);
 		Thread blue = new Thread(blueRun);
 		red.start();
@@ -125,29 +125,30 @@ public class GameInitPhase implements Drawable, Updateable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		EditableWorld[] result = {redworld, blueworld, world};
+
+		EditableWorld[] result = { redworld, blueworld, world };
 		return result;
 	}
 
 	private boolean checkPlacement(Location loc, PlayerColors owner) {
-		return true;/*
-		if (owner.equals(PlayerColors.Blue)) {
-			if (0 <= loc.column && loc.column < 10 && 0 <= loc.row
-					&& loc.row < 4) {
-				if (world.getUnitAt(loc).getType().equals(UnitType.Empty)) {
+		if(world.getUnitAt(loc) == null){
+			world.placeUnit(loc, new StandardUnit(PlayerColors.None, UnitType.Empty));
+		}
+		if (world.getUnitAt(loc).getType().equals(UnitType.Empty)) {
+
+			if (owner.equals(PlayerColors.Blue)) {
+				if (0 <= loc.column && loc.column < 10 && 0 <= loc.row
+						&& loc.row < 4) {
 					return true;
 				}
-			}
-		} else if (owner.equals(PlayerColors.Red)) {
-			if (0 < loc.column && loc.column < 10 && 6 <= loc.row
-					&& loc.row < 10) {
-				if (world.getUnitAt(loc).getType().equals(UnitType.Empty)) {
+			} else if (owner.equals(PlayerColors.Red)) {
+				if (0 < loc.column && loc.column < 10 && 6 <= loc.row
+						&& loc.row < 10) {
 					return true;
 				}
 			}
 		}
-		return false;*/
+		return false;
 	}
 
 }

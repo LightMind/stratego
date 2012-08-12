@@ -20,7 +20,6 @@ public class ServerApplication {
 			playerBlue = new NetworkPlayerServer(25566, PlayerColors.Blue);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
