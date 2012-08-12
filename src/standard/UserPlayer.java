@@ -1,5 +1,7 @@
 package standard;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,6 +27,10 @@ public class UserPlayer implements Player, Updateable, Drawable {
 	
 	private int x = 0,y = 0;
 	
+	private boolean endInitPhase = false;
+	
+	private ReentrantLock lock = new ReentrantLock();
+	
 	public UserPlayer(GameVisualizer visual){
 		this.visual = visual;
 		state = GameState.UnitPlacement;
@@ -32,23 +38,45 @@ public class UserPlayer implements Player, Updateable, Drawable {
 
 	@Override
 	public Location placeUnit(Unit unit) {
-		return null;
+		lock.lock();
+		while (queue[0] == null) {
+			try {
+				lock.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		Location result = queue[0];
+		queue[0] = null;
+		lock.unlock();
+		return result;
 	}
 
 	@Override
 	public Location[] switchUnits() {
+		lock.lock();
 		if(state.equals(GameState.UnitPlacement)){
 			state = GameState.UnitSwitching;
 			queue = new Location[2];
 		}
+		while(queue[0] == null || queue[1] == null){
+			try {
+				lock.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		Location[] result = {queue[0], queue[1]};
+		queue[0] = null;
+		queue[1] = null;
+		lock.unlock();
 		
-		
-		return null;
+		return result;
 	}
 
 	@Override
 	public boolean endInitPhase() {
-		return false;
+		return endInitPhase;
 	}
 
 	@Override
@@ -59,7 +87,19 @@ public class UserPlayer implements Player, Updateable, Drawable {
 	@Override
 	public Location[] getMove(World world) {
 		state = GameState.GamePhase;
-		return null;
+		while(queue[0] == null || queue[1] == null){
+			try {
+				lock.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		Location[] result = {queue[0], queue[1]};
+		queue[0] = null;
+		queue[1] = null;
+		lock.unlock();
+		
+		return result;
 	}
 
 	@Override
@@ -73,8 +113,22 @@ public class UserPlayer implements Player, Updateable, Drawable {
 	public void draw(GameContainer gc, Graphics g) {
 		g.setColor(Color.decode("#F87217"));
 		g.drawRect(x * CELLSIZE, y * CELLSIZE, CELLSIZE, CELLSIZE);
-		g.drawRect(x * CELLSIZE + 1, y * CELLSIZE + 1, CELLSIZE-2, CELLSIZE-2);
-		
+		g.drawRect(x * CELLSIZE + 1, y * CELLSIZE + 1, CELLSIZE - 2, CELLSIZE - 2);
+
+		lock.lock();
+
+		if (queue[0] != null) {
+			g.setColor(Color.decode("#348781"));
+			g.drawRect(queue[0].column * CELLSIZE, queue[0].row * CELLSIZE,	CELLSIZE, CELLSIZE);
+			g.drawRect(queue[0].column * CELLSIZE + 1, queue[0].row * CELLSIZE + 1, CELLSIZE - 2, CELLSIZE - 2);
+		}
+		if (!state.equals(GameState.UnitPlacement)) {
+			if (queue[1] != null) {
+				g.setColor(Color.decode("#348781"));
+				g.drawRect(queue[0].column * CELLSIZE, queue[0].row * CELLSIZE,	CELLSIZE, CELLSIZE);
+				g.drawRect(queue[0].column * CELLSIZE + 1, queue[0].row	* CELLSIZE + 1, CELLSIZE - 2, CELLSIZE - 2);
+			}
+		}
 	}
 
 	@Override
@@ -104,6 +158,35 @@ public class UserPlayer implements Player, Updateable, Drawable {
 			if(x < 0){
 				x = WIDTH;
 			}
+		}
+		
+		if(input.isKeyPressed(Input.KEY_SPACE)){
+			lock.lock();
+			switch(state){
+			case UnitPlacement : 
+				if(queue[0] == null){
+					queue[0] = new Location(x,y);
+					lock.notifyAll();
+				}
+				break;
+			case UnitSwitching :
+			case GamePhase :
+				if(queue[0] == null){
+					queue[0] = new Location(x,y);
+				}
+				else if(queue[1] == null){
+					queue[1] = new Location(x,y);
+					lock.notifyAll();
+				}
+				else{
+					lock.notifyAll();
+				}
+			}
+			lock.unlock();
+		}
+		
+		if(input.isKeyPressed(Input.KEY_Q)){
+			endInitPhase = true;
 		}
 	}
 

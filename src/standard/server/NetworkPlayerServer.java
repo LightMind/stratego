@@ -39,7 +39,6 @@ public class NetworkPlayerServer implements Player {
 		in = new ObjectInputStream(instream);
 		out = new ObjectOutputStream(outstream);
 		
-	
 	}
 	
 	@Override
