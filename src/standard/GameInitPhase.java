@@ -66,10 +66,12 @@ public class GameInitPhase implements Drawable, Updateable {
 				redworld.placeUnit(placement.column, placement.row, unit);
 				blueworld.placeUnit(placement.column, placement.row,
 						new StandardUnit(PlayerColors.Red, UnitType.Unknown));
+				System.out.println("red updated");
 			} else {
 				redworld.placeUnit(placement.column, placement.row,
 						new StandardUnit(PlayerColors.Red, UnitType.Unknown));
 				blueworld.placeUnit(placement.column, placement.row, unit);
+				System.out.println("blue updated");
 			}
 		}
 
@@ -124,6 +126,7 @@ public class GameInitPhase implements Drawable, Updateable {
 	}
 
 	private boolean checkPlacement(Location loc, PlayerColors owner) {
+		return true;/*
 		if (owner.equals(PlayerColors.Blue)) {
 			if (0 <= loc.column && loc.column < 10 && 0 <= loc.row
 					&& loc.row < 4) {
@@ -139,7 +142,7 @@ public class GameInitPhase implements Drawable, Updateable {
 				}
 			}
 		}
-		return false;
+		return false;*/
 	}
 
 }
