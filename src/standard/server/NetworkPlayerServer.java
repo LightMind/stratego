@@ -39,6 +39,7 @@ public class NetworkPlayerServer implements Player {
 		in = new ObjectInputStream(instream);
 		out = new ObjectOutputStream(outstream);
 		
+		
 	}
 	
 	@Override
@@ -46,8 +47,11 @@ public class NetworkPlayerServer implements Player {
 		System.out.println("placeUnit " + color);
 		try {
 			out.writeObject("placeUnit");
+			out.flush();
+			out.reset();
 			out.writeObject(unit);
 			out.flush();
+			out.reset();
 			
 			Location loc = (Location) in.readObject();
 
@@ -72,6 +76,7 @@ public class NetworkPlayerServer implements Player {
 		try {
 			out.writeObject("switchUnit");
 			out.flush();
+			out.reset();
 			
 			Location[] loc = (Location[]) in.readObject();
 
@@ -90,6 +95,7 @@ public class NetworkPlayerServer implements Player {
 		try {
 			out.writeObject("endInitPhase");
 			out.flush();
+			out.reset();
 			
 			Boolean b = in.readBoolean();
 			return b;
@@ -103,13 +109,15 @@ public class NetworkPlayerServer implements Player {
 
 	@Override
 	public void updateWorld(World world) {
-		System.out.println("updateWorld " + color);
+		System.out.println("updateWorld " + color + " :"+world);
 		try {
-			out.writeObject("updateWorld:");
-			System.out.println(world);
+			out.writeObject("updateWorld");
+			out.flush();
+			out.reset();
 			out.writeObject(world);
 			System.out.println(world);
 			out.flush();
+			out.reset();
 			
 			try {
 				Thread.sleep(100);
@@ -126,8 +134,11 @@ public class NetworkPlayerServer implements Player {
 	public Location[] getMove(World world) {
 		try {
 			out.writeObject("updateWorld");
+			out.flush();
+			out.reset();
 			out.writeObject(world);
 			out.flush();
+			out.reset();
 			
 			Location[] loc = (Location[]) in.readObject();
 			

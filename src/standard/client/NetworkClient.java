@@ -130,7 +130,7 @@ public class NetworkClient implements Updateable{
 
 	private void updateWorld() throws ClassNotFoundException, IOException {
 		World w = (World) in.readObject();
-		System.out.println(w);
+		System.out.println("world: "+w);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
