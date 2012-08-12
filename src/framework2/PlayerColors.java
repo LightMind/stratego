@@ -13,4 +13,13 @@ public enum PlayerColors {
 		}
 		return Color.black;
 	}
+	
+	public String toString(){
+		switch (this) {
+		case Red: return "Red";
+		case Blue: return "Blue";
+		case None: return "None";
+		}
+		return ";(";
+	}
 }
