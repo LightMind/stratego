@@ -12,7 +12,6 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import standard.Constants;
 import standard.StandardWorld;
 
-import framework.StrategoGame;
 import framework2.Drawable;
 import framework2.PlayerColors;
 import framework2.Terrain;
@@ -21,6 +20,10 @@ import framework2.UnitType;
 import framework2.World;
 
 public class GameVisualizer implements Drawable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2282524866198223776L;
 	private World world;
 	private int width = Constants.WIDTH, height = Constants.HEIGHT;
 	private int cellSize = Constants.CELLSIZE;

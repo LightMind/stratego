@@ -1,6 +1,8 @@
 package framework2;
 
-public enum Terrain {
+import java.io.Serializable;
+
+public enum Terrain implements Serializable{
 	WATER,PLAIN;
 	
 	public String toString(){
