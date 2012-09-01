@@ -151,7 +151,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		if(input.isKeyPressed(Input.KEY_UP)){
 			y--;
 			if(y < 0){
-				y = HEIGHT;
+				y = HEIGHT-1;
 			}
 		}
 		if(input.isKeyPressed(Input.KEY_RIGHT)){
@@ -163,7 +163,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		if(input.isKeyPressed(Input.KEY_LEFT)){
 			x--;
 			if(x < 0){
-				x = WIDTH;
+				x = WIDTH-1;
 			}
 		}
 		
