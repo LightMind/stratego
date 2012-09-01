@@ -193,6 +193,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 			case GamePhase :
 				if(queue[0] == null){
 					queue[0] = new Location(x,y);
+					condition.signalAll();
 				}
 				else if(queue[1] == null){
 					queue[1] = new Location(x,y);

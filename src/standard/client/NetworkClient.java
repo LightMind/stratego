@@ -31,7 +31,6 @@ public class NetworkClient implements Updateable{
 	public NetworkClient(InetAddress adress, int port,Player player) throws IOException, InterruptedException, ClassNotFoundException{
 		socket = new Socket(adress, port);
 		this.player = player;
-		System.out.println("connected");
 		OutputStream outstream = socket.getOutputStream();
 		InputStream instream = socket.getInputStream();
 		
@@ -50,8 +49,7 @@ public class NetworkClient implements Updateable{
 				while(true){
 					
 					try {
-						Thread.sleep(10);
-						System.out.println("listen");
+						Thread.sleep(5);
 						listen();
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
@@ -83,7 +81,7 @@ public class NetworkClient implements Updateable{
 		System.out.println("Message recieved: "+msg);
 		switch(msg){
 		case "updateWorld": updateWorld() ;break;
-		case "switchUnits": switchUnits() ;break;
+		case "switchUnit": switchUnits() ;break;
 		case "placeUnit": placeUnit(); break;
 		case "endInitPhase": endInitPhase() ;break;
 		case "getMove": getMove(); break;
@@ -100,6 +98,7 @@ public class NetworkClient implements Updateable{
 		Location[] loc = player.getMove(w);
 		out.writeObject(loc);
 		out.flush();
+		out.reset();
 	}
 
 
@@ -107,6 +106,7 @@ public class NetworkClient implements Updateable{
 		boolean b = player.endInitPhase();
 		out.writeBoolean(b);
 		out.flush();
+		out.reset();
 		
 	}
 
@@ -116,6 +116,7 @@ public class NetworkClient implements Updateable{
 		Location loc = player.placeUnit(u);
 		out.writeObject(loc);
 		out.flush();
+		out.reset();
 		
 	}
 
@@ -123,17 +124,13 @@ public class NetworkClient implements Updateable{
 	private void switchUnits() throws IOException {
 		Location[] locs = player.switchUnits();
 		out.writeObject(locs);
-		out.flush();		
+		out.flush();	
+		out.reset();
 	}
 
 
 	private void updateWorld() throws ClassNotFoundException, IOException {
 		World w = (World) in.readObject();
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		player.updateWorld(w);
 	}
 
