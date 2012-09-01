@@ -57,6 +57,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		}
 		Location result = queue[0];
 		queue[0] = null;
+		toPlace = null;
 		lock.unlock();
 		return result;
 	}
@@ -143,7 +144,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		// draw unit to be placed
 		if(toPlace != null){
 			g.setColor(Color.lightGray);
-			g.drawString("Unit to be placed", CELLSIZE*(WIDTH+1), CELLSIZE);
+			g.drawString("Unit to be placed:", CELLSIZE*(WIDTH+1), CELLSIZE);
 			visual.drawUnit(g, toPlace, WIDTH +1, 2);
 		}
 		
