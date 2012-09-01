@@ -26,7 +26,7 @@ public class NetworkPlayerServer implements Player {
 		this.port = port;
 		this.color = color;
 		
-		System.out.println("Server started");
+		System.out.println("Server started" +  color);
 		
 		ServerSocket server = new ServerSocket(port);
 		Socket client = server.accept();
@@ -45,14 +45,14 @@ public class NetworkPlayerServer implements Player {
 	public Location placeUnit(Unit unit) {
 		System.out.println("placeUnit " + color);
 		try {
-			out.writeObject("placeUnit");
+			out.writeUTF("placeUnit");
 			out.writeObject(unit);
 			out.flush();
 			
 			Location loc = (Location) in.readObject();
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,7 +70,7 @@ public class NetworkPlayerServer implements Player {
 	@Override
 	public Location[] switchUnits() {
 		try {
-			out.writeObject("switchUnit");
+			out.writeUTF("switchUnit");
 			out.flush();
 			
 			Location[] loc = (Location[]) in.readObject();
@@ -88,7 +88,7 @@ public class NetworkPlayerServer implements Player {
 	@Override
 	public boolean endInitPhase() {
 		try {
-			out.writeObject("endInitPhase");
+			out.writeUTF("endInitPhase");
 			out.flush();
 			
 			Boolean b = in.readBoolean();
@@ -105,14 +105,14 @@ public class NetworkPlayerServer implements Player {
 	public void updateWorld(World world) {
 		System.out.println("updateWorld " + color);
 		try {
-			out.writeObject("updateWorld:");
+			out.writeUTF("updateWorld");
 			System.out.println(world);
 			out.writeObject(world);
 			System.out.println(world);
 			out.flush();
 			
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -125,7 +125,7 @@ public class NetworkPlayerServer implements Player {
 	@Override
 	public Location[] getMove(World world) {
 		try {
-			out.writeObject("updateWorld");
+			out.writeUTF("updateWorld");
 			out.writeObject(world);
 			out.flush();
 			
