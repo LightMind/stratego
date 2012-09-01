@@ -44,7 +44,6 @@ public class NetworkPlayerServer implements Player {
 	
 	@Override
 	public Location placeUnit(Unit unit) {
-		System.out.println("placeUnit " + color);
 		try {
 			out.writeUTF("placeUnit");
 			out.flush();
@@ -109,13 +108,11 @@ public class NetworkPlayerServer implements Player {
 
 	@Override
 	public void updateWorld(World world) {
-		System.out.println("updateWorld " + color + " :"+world);
 		try {
 			out.writeUTF("updateWorld");
 			out.flush();
 			out.reset();
 			out.writeObject(world);
-			System.out.println(world);
 			out.flush();
 			out.reset();
 			
