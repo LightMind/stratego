@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.newdawn.slick.Color;
 
-public enum PlayerColors implements Serializable {
+public enum Colors implements Serializable {
 	Red,Blue,None;
 	
 	public Color getColor(){

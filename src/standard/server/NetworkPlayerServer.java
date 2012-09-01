@@ -10,19 +10,19 @@ import java.net.Socket;
 
 import framework2.Location;
 import framework2.Player;
-import framework2.PlayerColors;
+import framework2.Colors;
 import framework2.Unit;
 import framework2.World;
 
 public class NetworkPlayerServer implements Player {
 	
 	private int port;
-	private PlayerColors color;
+	private Colors color;
 	
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	
-	public NetworkPlayerServer(int port, PlayerColors color) throws IOException{
+	public NetworkPlayerServer(int port, Colors color) throws IOException{
 		this.port = port;
 		this.color = color;
 		

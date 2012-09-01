@@ -5,7 +5,7 @@ import java.util.Map;
 
 import framework2.EditableWorld;
 import framework2.Location;
-import framework2.PlayerColors;
+import framework2.Colors;
 import framework2.Terrain;
 import framework2.Unit;
 import framework2.UnitType;
@@ -15,7 +15,7 @@ public class StandardWorld implements EditableWorld {
 	private HashMap<Location, Unit> units = new HashMap<Location, Unit>();
 	private HashMap<Location, Terrain> terrain = new HashMap<Location, Terrain>();
 
-	private Unit empty = new StandardUnit(PlayerColors.None, UnitType.Empty);
+	private Unit empty = new StandardUnit(Colors.None, UnitType.Empty);
 
 	@Override
 	public Unit getUnitAt(int column, int row) {

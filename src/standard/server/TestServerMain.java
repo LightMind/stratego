@@ -2,7 +2,7 @@ package standard.server;
 
 import java.io.IOException;
 
-import framework2.PlayerColors;
+import framework2.Colors;
 
 public class TestServerMain {
 
@@ -11,7 +11,7 @@ public class TestServerMain {
 	 */
 	public static void main(String[] args) {
 		try {
-			NetworkPlayerServer server = new NetworkPlayerServer(25565, PlayerColors.Red);
+			NetworkPlayerServer server = new NetworkPlayerServer(25565, Colors.Red);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

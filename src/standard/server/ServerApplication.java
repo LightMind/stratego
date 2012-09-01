@@ -5,7 +5,7 @@ import java.io.IOException;
 import standard.GameInitPhase;
 
 import framework2.EditableWorld;
-import framework2.PlayerColors;
+import framework2.Colors;
 
 public class ServerApplication {
 
@@ -16,8 +16,8 @@ public class ServerApplication {
 		NetworkPlayerServer playerRed = null;
 		NetworkPlayerServer playerBlue = null;
 		try {
-			playerRed = new NetworkPlayerServer(25565, PlayerColors.Red);
-			playerBlue = new NetworkPlayerServer(25566, PlayerColors.Blue);
+			playerRed = new NetworkPlayerServer(25565, Colors.Red);
+			playerBlue = new NetworkPlayerServer(25566, Colors.Blue);
 
 		} catch (IOException e) {
 			e.printStackTrace();

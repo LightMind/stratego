@@ -10,11 +10,10 @@ import framework2.Drawable;
 import framework2.EditableWorld;
 import framework2.Location;
 import framework2.Player;
-import framework2.PlayerColors;
+import framework2.Colors;
 import framework2.Unit;
 import framework2.UnitType;
 import framework2.Updateable;
-import framework2.World;
 
 public class GameInitPhase implements Drawable, Updateable {
 	/**
@@ -42,11 +41,10 @@ public class GameInitPhase implements Drawable, Updateable {
 	private void makeUnitLists() {
 		for (UnitType type : UnitType.values()) {
 			for (int i = 0; i < type.getAmount(); i++) {
-				blueUnits.add(new StandardUnit(PlayerColors.Blue, type));
-				redUnits.add(new StandardUnit(PlayerColors.Red, type));
+				blueUnits.add(new StandardUnit(Colors.Blue, type));
+				redUnits.add(new StandardUnit(Colors.Red, type));
 			}
 		}
-		System.out.println("Unit list created");
 	}
 
 	@Override
@@ -64,56 +62,11 @@ public class GameInitPhase implements Drawable, Updateable {
 
 	}
 
-	private void placeUnit(Unit unit, Location placement) {
-		synchronized (world) {
-			world.placeUnit(placement.column, placement.row, unit);
-			if (unit.getOwner().equals(PlayerColors.Red)) {
-				redworld.placeUnit(placement.column, placement.row, unit);
-				blueworld.placeUnit(placement.column, placement.row,
-						new StandardUnit(PlayerColors.Red, UnitType.Unknown));
-				System.out.println("red updated");
-			} else {
-				redworld.placeUnit(placement.column, placement.row,
-						new StandardUnit(PlayerColors.Blue, UnitType.Unknown));
-				blueworld.placeUnit(placement.column, placement.row, unit);
-				System.out.println("blue updated");
-			}
-		}
 
-	}
 
 	public EditableWorld[] getInitPlacementFromPlayers() {
-		Runnable redRun = new Runnable() {
-			@Override
-			public void run() {
-				for (Unit unit : redUnits) {
-					red.updateWorld(redworld);
-					Location placement = red.placeUnit(unit);
-					while (!checkPlacement(placement, PlayerColors.Red)) {
-						red.updateWorld(redworld);
-						placement = red.placeUnit(unit);
-					}
-					placeUnit(unit, placement);
-				}
-			}
-		};
-
-		Runnable blueRun = new Runnable() {
-			@Override
-			public void run() {
-				for (Unit unit : blueUnits) {
-					blue.updateWorld(blueworld);
-					Location placement = blue.placeUnit(unit);
-
-					while (!checkPlacement(placement, PlayerColors.Blue)) {
-						blue.updateWorld(blueworld);
-						placement = blue.placeUnit(unit);
-					}
-					placeUnit(unit, placement);
-				}
-			}
-
-		};
+		Runnable redRun = new InitPlacement(Colors.Red, red, redUnits, redworld);
+		Runnable blueRun = new InitPlacement(Colors.Blue, blue, blueUnits, blueworld);
 
 		Thread red = new Thread(redRun);
 		Thread blue = new Thread(blueRun);
@@ -130,25 +83,64 @@ public class GameInitPhase implements Drawable, Updateable {
 		return result;
 	}
 
-	private boolean checkPlacement(Location loc, PlayerColors owner) {
-		if(world.getUnitAt(loc) == null){
-			world.placeUnit(loc, new StandardUnit(PlayerColors.None, UnitType.Empty));
-		}
-		if (world.getUnitAt(loc).getType().equals(UnitType.Empty)) {
 
-			if (owner.equals(PlayerColors.Blue)) {
-				if (0 <= loc.column && loc.column < 10 && 0 <= loc.row
-						&& loc.row < 4) {
-					return true;
+	
+	
+	private class InitPlacement implements Runnable{
+
+		private Colors color;
+		private Player player;
+		private List<Unit> units;
+		private EditableWorld world;
+		
+		public InitPlacement(Colors color, Player player, List<Unit> units, EditableWorld world){
+			this.color = color;
+			this.player = player;
+			this.units = units;
+			this.world = world;
+		}
+		
+		@Override
+		public void run() {
+			for (Unit unit : units) {
+				player.updateWorld(world);
+				Location placement = player.placeUnit(unit);
+
+				while (!checkPlacement(placement, color)) {
+					player.updateWorld(world);
+					placement = player.placeUnit(unit);
 				}
-			} else if (owner.equals(PlayerColors.Red)) {
-				if (0 <= loc.column && loc.column < 10 && 6 <= loc.row
-						&& loc.row < 10) {
-					return true;
-				}
+				placeUnit(unit, placement);
 			}
 		}
-		return false;
+		
+		private void placeUnit(Unit unit, Location placement) {
+			synchronized (world) {
+				world.placeUnit(placement.column, placement.row, unit);
+				if (unit.getOwner().equals(Colors.Red)) {
+					redworld.placeUnit(placement.column, placement.row, unit);
+					blueworld.placeUnit(placement.column, placement.row,
+							new StandardUnit(Colors.Red, UnitType.Unknown));
+				} else {
+					redworld.placeUnit(placement.column, placement.row,
+							new StandardUnit(Colors.Blue, UnitType.Unknown));
+					blueworld.placeUnit(placement.column, placement.row, unit);
+				}
+			}
+
+		}
+		
+		private boolean checkPlacement(Location loc, Colors owner) {
+			if(world.getUnitAt(loc) == null){
+				world.placeUnit(loc, new StandardUnit(Colors.None, UnitType.Empty));
+			}
+			if (world.getUnitAt(loc).getType().equals(UnitType.Empty) && 0 <= loc.column && loc.column < 10 ) {
+				return (owner.equals(Colors.Blue) && 0 <= loc.row && loc.row < 4) ||
+						(owner.equals(Colors.Red) && 6 <= loc.row && loc.row < 10);
+			}
+			return false;
+		}
+		
 	}
 
 }

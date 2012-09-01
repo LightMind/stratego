@@ -6,7 +6,7 @@ import java.util.Map;
 import framework.Answer;
 import framework.StrategoGame;
 import framework2.Location;
-import framework2.PlayerColors;
+import framework2.Colors;
 import framework2.Rule;
 import framework2.Terrain;
 import framework2.Unit;
@@ -22,8 +22,8 @@ public class GameMockup implements StrategoGame {
 			return UnitType.Empty;
 		}
 		@Override
-		public PlayerColors getOwner() {
-			return PlayerColors.None;
+		public Colors getOwner() {
+			return Colors.None;
 		}
 	};
 
@@ -35,8 +35,8 @@ public class GameMockup implements StrategoGame {
 			}
 			
 			@Override
-			public PlayerColors getOwner() {
-				return PlayerColors.Red;
+			public Colors getOwner() {
+				return Colors.Red;
 			}
 		});
 	}
@@ -56,8 +56,8 @@ public class GameMockup implements StrategoGame {
 	}
 
 	@Override
-	public PlayerColors getPlayerInTurn() {
-		return PlayerColors.Red;
+	public Colors getPlayerInTurn() {
+		return Colors.Red;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import standard.Constants;
 import standard.StandardWorld;
 
 import framework2.Drawable;
-import framework2.PlayerColors;
+import framework2.Colors;
 import framework2.Terrain;
 import framework2.Unit;
 import framework2.UnitType;
@@ -89,7 +89,7 @@ public class GameVisualizer implements Drawable {
 				if(unit == null){
 					continue;
 				}
-				PlayerColors player = unit.getOwner();
+				Colors player = unit.getOwner();
 				UnitType type = unit.getType();
 
 				if (!type.equals(UnitType.Empty)) {

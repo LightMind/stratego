@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 
 public interface Unit extends Serializable{
-	public PlayerColors getOwner();
+	public Colors getOwner();
 	public UnitType getType();
 }
