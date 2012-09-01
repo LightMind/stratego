@@ -66,6 +66,10 @@ public class GameVisualizer implements Drawable {
 
 	public void draw(GameContainer gc, Graphics g) {
 		lock.lock();
+		
+		/*
+		 * Draw map
+		 */
 		for (int row = 0; row < height; row++) {
 			for (int column = 0; column < width; column++) {
 				Terrain t = world.getTerrain(column, row);
@@ -83,6 +87,11 @@ public class GameVisualizer implements Drawable {
 			}
 		}
 
+		/*
+		 * Draw units
+		 */
+		g.setFont(uFont);
+		
 		for (int row = 0; row < height; row++) {
 			for (int column = 0; column < width; column++) {
 				Unit unit = world.getUnitAt(column, row);
@@ -97,21 +106,18 @@ public class GameVisualizer implements Drawable {
 					g.fillRect(column * cellSize + boxOffset, row * cellSize
 							+ boxOffset, cellSize - boxSize, cellSize - boxSize);
 				} else {
-					g.setColor(Color.darkGray);
+					/*g.setColor(Color.darkGray);
 					g.fillRect(column * cellSize + boxOffset, row * cellSize
-							+ boxOffset, cellSize - boxSize, cellSize - boxSize);
+							+ boxOffset, cellSize - boxSize, cellSize - boxSize);*/
+					continue;
 				}
 
 				g.setColor(player.getColor());
-
-				g.setFont(uFont);
-
 				g.drawString(type.toString(), column * cellSize + offsetTextX,
 						row * cellSize + offsetTextY);
-
-				g.resetFont();
 			}
 		}
+		g.resetFont();
 		
 		lock.unlock();
 	}
