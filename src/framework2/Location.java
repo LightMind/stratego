@@ -34,5 +34,9 @@ public class Location implements Serializable{
 		return true;
 	}
 	
+	public String toString(){
+		return "[" + column + ", " + row + "]";
+	}
+	
 	
 }

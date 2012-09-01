@@ -26,7 +26,7 @@ public class NetworkPlayerServer implements Player {
 		this.port = port;
 		this.color = color;
 		
-		System.out.println("Server started" +  color);
+		System.out.println("Server started " +  color);
 		
 		ServerSocket server = new ServerSocket(port);
 		Socket client = server.accept();
@@ -71,12 +71,15 @@ public class NetworkPlayerServer implements Player {
 
 	@Override
 	public Location[] switchUnits() {
+		System.out.println("switch units");
 		try {
 			out.writeUTF("switchUnit");
 			out.flush();
 			out.reset();
 			
 			Location[] loc = (Location[]) in.readObject();
+			
+			System.out.println("Got switch unit locations from client");
 
 			return loc;
 		} catch (IOException e) {
