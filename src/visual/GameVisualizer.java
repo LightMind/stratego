@@ -89,37 +89,39 @@ public class GameVisualizer implements Drawable {
 
 		/*
 		 * Draw units
-		 */
-		g.setFont(uFont);
-		
+		 */	
 		for (int row = 0; row < height; row++) {
 			for (int column = 0; column < width; column++) {
 				Unit unit = world.getUnitAt(column, row);
 				if(unit == null){
 					continue;
 				}
-				Colors player = unit.getOwner();
-				UnitType type = unit.getType();
-
-				if (!type.equals(UnitType.Empty)) {
-					g.setColor(Color.white);
-					g.fillRect(column * cellSize + boxOffset, row * cellSize
-							+ boxOffset, cellSize - boxSize, cellSize - boxSize);
-				} else {
-					/*g.setColor(Color.darkGray);
-					g.fillRect(column * cellSize + boxOffset, row * cellSize
-							+ boxOffset, cellSize - boxSize, cellSize - boxSize);*/
-					continue;
-				}
-
-				g.setColor(player.getColor());
-				g.drawString(type.toString(), column * cellSize + offsetTextX,
-						row * cellSize + offsetTextY);
+				drawUnit(g,unit,column,row);
 			}
-		}
-		g.resetFont();
+		};
 		
 		lock.unlock();
+	}
+	
+	public void drawUnit(Graphics g, Unit unit, int column, int row){
+		Colors player = unit.getOwner();
+		UnitType type = unit.getType();
+
+		if (!type.equals(UnitType.Empty)) {
+			g.setColor(Color.white);
+			g.fillRect(column * cellSize + boxOffset, row * cellSize
+					+ boxOffset, cellSize - boxSize, cellSize - boxSize);
+		} else {
+			/*g.setColor(Color.darkGray);
+			g.fillRect(column * cellSize + boxOffset, row * cellSize
+					+ boxOffset, cellSize - boxSize, cellSize - boxSize);*/
+			return;
+		}
+		g.setFont(uFont);
+		g.setColor(player.getColor());
+		g.drawString(type.toString(), column * cellSize + offsetTextX,
+				row * cellSize + offsetTextY);
+		g.resetFont();
 	}
 
 }

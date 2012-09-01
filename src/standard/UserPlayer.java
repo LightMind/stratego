@@ -34,6 +34,8 @@ public class UserPlayer implements Player, Updateable, Drawable {
 	
 	private boolean endInitPhase = false;
 	
+	private Unit toPlace = null;
+	
 	private ReentrantLock lock = new ReentrantLock();
 	private Condition condition = lock.newCondition();
 	
@@ -45,6 +47,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 	@Override
 	public Location placeUnit(Unit unit) {
 		lock.lock();
+		toPlace = unit;
 		while (queue[0] == null) {
 			try {
 				condition.await();
@@ -123,6 +126,7 @@ public class UserPlayer implements Player, Updateable, Drawable {
 
 		lock.lock();
 
+		// draw selection
 		if (queue[0] != null) {
 			g.setColor(Color.decode("#348781"));
 			g.drawRect(queue[0].column * CELLSIZE, queue[0].row * CELLSIZE,	CELLSIZE, CELLSIZE);
@@ -135,6 +139,14 @@ public class UserPlayer implements Player, Updateable, Drawable {
 				g.drawRect(queue[0].column * CELLSIZE + 1, queue[0].row	* CELLSIZE + 1, CELLSIZE - 2, CELLSIZE - 2);
 			}
 		}
+		
+		// draw unit to be placed
+		if(toPlace != null){
+			g.setColor(Color.lightGray);
+			g.drawString("Unit to be placed", CELLSIZE*(WIDTH+1), CELLSIZE);
+			visual.drawUnit(g, toPlace, WIDTH +1, 2);
+		}
+		
 		lock.unlock();
 	}
 
