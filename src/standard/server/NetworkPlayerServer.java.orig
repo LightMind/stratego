@@ -46,9 +46,13 @@ public class NetworkPlayerServer implements Player {
 	public Location placeUnit(Unit unit) {
 		System.out.println("placeUnit " + color);
 		try {
+<<<<<<< HEAD
 			out.writeUTF("placeUnit");
+=======
+			out.writeObject("placeUnit");
 			out.flush();
 			out.reset();
+>>>>>>> bb9bd427cfc10e65979e18a53de523b7622ba9a7
 			out.writeObject(unit);
 			out.flush();
 			out.reset();
@@ -111,9 +115,14 @@ public class NetworkPlayerServer implements Player {
 	public void updateWorld(World world) {
 		System.out.println("updateWorld " + color + " :"+world);
 		try {
+<<<<<<< HEAD
 			out.writeUTF("updateWorld");
+			System.out.println(world);
+=======
+			out.writeObject("updateWorld");
 			out.flush();
 			out.reset();
+>>>>>>> bb9bd427cfc10e65979e18a53de523b7622ba9a7
 			out.writeObject(world);
 			System.out.println(world);
 			out.flush();
@@ -133,9 +142,13 @@ public class NetworkPlayerServer implements Player {
 	@Override
 	public Location[] getMove(World world) {
 		try {
+<<<<<<< HEAD
 			out.writeUTF("updateWorld");
+=======
+			out.writeObject("updateWorld");
 			out.flush();
 			out.reset();
+>>>>>>> bb9bd427cfc10e65979e18a53de523b7622ba9a7
 			out.writeObject(world);
 			out.flush();
 			out.reset();
