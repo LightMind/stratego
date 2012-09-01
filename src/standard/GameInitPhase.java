@@ -117,8 +117,25 @@ public class GameInitPhase implements Drawable, Updateable {
 				}
 				placeUnit(unit, placement);
 			}
+			player.updateWorld(world);
+			while(!player.endInitPhase()){
+				Location[] locs = player.switchUnits();
+				switchUnits(locs);
+			}
 		}
 		
+		private void switchUnits(Location[] locs) {
+			synchronized (world) {
+				if(!(checkPlacement(locs[0],color) && checkPlacement(locs[1],color))){
+					return;
+				}
+				Unit u0 = world.getUnitAt(locs[0]);
+				Unit u1 = world.getUnitAt(locs[1]);
+				placeUnit(u0, locs[1]);
+				placeUnit(u1, locs[0]);
+			}
+		}
+
 		private void placeUnit(Unit unit, Location placement) {
 			synchronized (world) {
 				world.placeUnit(placement.column, placement.row, unit);

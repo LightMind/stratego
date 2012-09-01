@@ -26,6 +26,7 @@ public class ServerApplication {
 		GameInitPhase initGame = new GameInitPhase(playerRed, playerBlue);
 		EditableWorld[] worlds = initGame.getInitPlacementFromPlayers();
 		
+		
 	}
 
 }

@@ -142,9 +142,9 @@ public class UserPlayer implements Player, Updateable, Drawable {
 		}
 		
 		// draw unit to be placed
+		g.setColor(Color.lightGray);
+		g.drawString("Unit to be placed:", CELLSIZE*(WIDTH+1), CELLSIZE);
 		if(toPlace != null){
-			g.setColor(Color.lightGray);
-			g.drawString("Unit to be placed:", CELLSIZE*(WIDTH+1), CELLSIZE);
 			visual.drawUnit(g, toPlace, WIDTH +1, 2);
 		}
 		
