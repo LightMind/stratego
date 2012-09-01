@@ -142,7 +142,7 @@ public class GameInitPhase implements Drawable, Updateable {
 					return true;
 				}
 			} else if (owner.equals(PlayerColors.Red)) {
-				if (0 < loc.column && loc.column < 10 && 6 <= loc.row
+				if (0 <= loc.column && loc.column < 10 && 6 <= loc.row
 						&& loc.row < 10) {
 					return true;
 				}

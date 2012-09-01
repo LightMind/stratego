@@ -50,18 +50,19 @@ public class NetworkClient implements Updateable{
 				while(true){
 					
 					try {
-						Thread.sleep(100);
+						Thread.sleep(10);
 						System.out.println("listen");
 						listen();
 					} catch (ClassNotFoundException e) {
-						//e.printStackTrace();
 						e.printStackTrace();
+						break;
 					} catch (IOException e) {
-						//e.printStackTrace();
+
 						e.printStackTrace();
+						break;
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+						break;
 					} 
 				}
 				
@@ -78,8 +79,7 @@ public class NetworkClient implements Updateable{
 	
 
 	public void listen() throws ClassNotFoundException, IOException{
-		Object o = in.readObject();
-		String msg = (String) o;
+		String msg = in.readUTF();
 		System.out.println("Message recieved: "+msg);
 		switch(msg){
 		case "updateWorld": updateWorld() ;break;
@@ -123,18 +123,15 @@ public class NetworkClient implements Updateable{
 	private void switchUnits() throws IOException {
 		Location[] locs = player.switchUnits();
 		out.writeObject(locs);
-		out.flush();
-		
+		out.flush();		
 	}
 
 
 	private void updateWorld() throws ClassNotFoundException, IOException {
 		World w = (World) in.readObject();
-		System.out.println("world: "+w);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(10);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		player.updateWorld(w);
