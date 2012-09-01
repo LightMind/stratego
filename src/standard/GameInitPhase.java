@@ -34,11 +34,21 @@ public class GameInitPhase implements Drawable, Updateable {
 		this.red = red;
 		this.blue = blue;
 
-		makeUnitLists();
+		makeUnitLists(true);
 
 	}
 
-	private void makeUnitLists() {
+	private void makeUnitLists(Boolean test) {
+		if(test){
+			blueUnits.add(new StandardUnit(Colors.Blue, UnitType.Major));
+			redUnits.add(new StandardUnit(Colors.Red, UnitType.Major));
+			
+
+			blueUnits.add(new StandardUnit(Colors.Blue, UnitType.Captain));
+			redUnits.add(new StandardUnit(Colors.Red, UnitType.Captain));
+
+			return;
+		}
 		for (UnitType type : UnitType.values()) {
 			for (int i = 0; i < type.getAmount(); i++) {
 				blueUnits.add(new StandardUnit(Colors.Blue, type));
@@ -111,22 +121,26 @@ public class GameInitPhase implements Drawable, Updateable {
 				player.updateWorld(world);
 				Location placement = player.placeUnit(unit);
 
-				while (!checkPlacement(placement, color)) {
+				while (!checkPlacement(placement, color, false)) {
 					player.updateWorld(world);
 					placement = player.placeUnit(unit);
 				}
 				placeUnit(unit, placement);
 			}
 			player.updateWorld(world);
+			System.out.println("start switch unit phase");
 			while(!player.endInitPhase()){
+				System.out.println("ask player");
 				Location[] locs = player.switchUnits();
 				switchUnits(locs);
+				player.updateWorld(world);
 			}
+			System.out.println("end switch unit phase");
 		}
 		
 		private void switchUnits(Location[] locs) {
 			synchronized (world) {
-				if(!(checkPlacement(locs[0],color) && checkPlacement(locs[1],color))){
+				if(!(checkPlacement(locs[0],color, true) && checkPlacement(locs[1],color, true))){
 					return;
 				}
 				Unit u0 = world.getUnitAt(locs[0]);
@@ -152,11 +166,11 @@ public class GameInitPhase implements Drawable, Updateable {
 
 		}
 		
-		private boolean checkPlacement(Location loc, Colors owner) {
+		private boolean checkPlacement(Location loc, Colors owner, boolean ignoreEmpty) {
 			if(world.getUnitAt(loc) == null){
 				world.placeUnit(loc, new StandardUnit(Colors.None, UnitType.Empty));
 			}
-			if (world.getUnitAt(loc).getType().equals(UnitType.Empty) && 0 <= loc.column && loc.column < 10 ) {
+			if ((world.getUnitAt(loc).getType().equals(UnitType.Empty) || ignoreEmpty) && 0 <= loc.column && loc.column < 10 ) {
 				return (owner.equals(Colors.Blue) && 0 <= loc.row && loc.row < 4) ||
 						(owner.equals(Colors.Red) && 6 <= loc.row && loc.row < 10);
 			}
