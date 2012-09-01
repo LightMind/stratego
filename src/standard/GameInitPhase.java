@@ -65,8 +65,8 @@ public class GameInitPhase implements Drawable, Updateable {
 
 
 	public EditableWorld[] getInitPlacementFromPlayers() {
-		Runnable redRun = new InitPlacement(Colors.Red, red, redUnits, redworld);
-		Runnable blueRun = new InitPlacement(Colors.Blue, blue, blueUnits, blueworld);
+		Runnable redRun = new InitPlacement(Colors.Red, red, redUnits, redworld, blue, blueworld);
+		Runnable blueRun = new InitPlacement(Colors.Blue, blue, blueUnits, blueworld, red, redworld);
 
 		Thread red = new Thread(redRun);
 		Thread blue = new Thread(blueRun);
@@ -92,12 +92,17 @@ public class GameInitPhase implements Drawable, Updateable {
 		private Player player;
 		private List<Unit> units;
 		private EditableWorld world;
+		private Player otherPlayer;
+		private EditableWorld otherWorld;
 		
-		public InitPlacement(Colors color, Player player, List<Unit> units, EditableWorld world){
+		public InitPlacement(Colors color, Player player, List<Unit> units, EditableWorld world, 
+				Player otherPlayer, EditableWorld otherWorld){
 			this.color = color;
 			this.player = player;
 			this.units = units;
 			this.world = world;
+			this.otherPlayer = otherPlayer;
+			this.otherWorld = otherWorld;
 		}
 		
 		@Override
@@ -111,6 +116,7 @@ public class GameInitPhase implements Drawable, Updateable {
 					placement = player.placeUnit(unit);
 				}
 				placeUnit(unit, placement);
+				otherPlayer.updateWorld(otherWorld);
 			}
 		}
 		

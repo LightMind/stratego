@@ -108,22 +108,18 @@ public class NetworkPlayerServer implements Player {
 
 	@Override
 	public void updateWorld(World world) {
-		try {
-			out.writeUTF("updateWorld");
-			out.flush();
-			out.reset();
-			out.writeObject(world);
-			out.flush();
-			out.reset();
-			
+		synchronized (world) {
 			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				out.writeUTF("updateWorld");
+				out.flush();
+				out.reset();
+				out.writeObject(world);
+				out.flush();
+				out.reset();
+				
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
