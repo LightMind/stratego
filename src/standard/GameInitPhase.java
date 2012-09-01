@@ -124,11 +124,11 @@ public class GameInitPhase implements Drawable, Updateable {
 				world.placeUnit(placement.column, placement.row, unit);
 				if (unit.getOwner().equals(Colors.Red)) {
 					redworld.placeUnit(placement.column, placement.row, unit);
-					blueworld.placeUnit(placement.column, placement.row,
-							new StandardUnit(Colors.Red, UnitType.Unknown));
+				//	blueworld.placeUnit(placement.column, placement.row,
+				//			new StandardUnit(Colors.Red, UnitType.Unknown));
 				} else {
-					redworld.placeUnit(placement.column, placement.row,
-							new StandardUnit(Colors.Blue, UnitType.Unknown));
+				//	redworld.placeUnit(placement.column, placement.row,
+				//			new StandardUnit(Colors.Blue, UnitType.Unknown));
 					blueworld.placeUnit(placement.column, placement.row, unit);
 				}
 			}
