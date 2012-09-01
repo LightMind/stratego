@@ -116,7 +116,6 @@ public class GameInitPhase implements Drawable, Updateable {
 					placement = player.placeUnit(unit);
 				}
 				placeUnit(unit, placement);
-				otherPlayer.updateWorld(otherWorld);
 			}
 		}
 		

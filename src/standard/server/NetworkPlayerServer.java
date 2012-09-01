@@ -57,7 +57,6 @@ public class NetworkPlayerServer implements Player {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return loc;
@@ -108,18 +107,16 @@ public class NetworkPlayerServer implements Player {
 
 	@Override
 	public void updateWorld(World world) {
-		synchronized (world) {
-			try {
-				out.writeUTF("updateWorld");
-				out.flush();
-				out.reset();
-				out.writeObject(world);
-				out.flush();
-				out.reset();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			out.writeUTF("updateWorld");
+			out.flush();
+			out.reset();
+			out.writeObject(world);
+			out.flush();
+			out.reset();
+
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
